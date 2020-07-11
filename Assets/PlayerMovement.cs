@@ -10,13 +10,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject fBullet,aBullet,eBullet,wBullet;
     [SerializeField] float dashTime;
     [SerializeField] float dashSpeed;
-    [SerializeField] float dashCD;
+    [SerializeField] int dashCD;
     [SerializeField] int health;
     Vector2 dir;
     Vector3 mousePos;
     GameObject bullet;
     private float dashing;
-    private float dashWait;
+    private int dashWait;
+    private bool canDash;
     private int ammo;
     enum PlayerState { Moving, Dashing, Shooting,Dead };
     PlayerState playerState;
@@ -30,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         speed = 4;
         dashTime = 80;
         dashSpeed = 15;
-        dashCD = 2;
+        dashCD = 160;
 
         playerState = PlayerState.Moving;
         rb = GetComponent<Rigidbody2D>();
@@ -132,14 +133,19 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Dash()
     {
-        
-        
-        
-        if (Input.GetButtonDown("Fire1") && playerState == PlayerState.Moving)// && dashWait == 0)
+        if (!canDash) {
+            dashWait++;
+            if (dashWait == dashCD) {
+                canDash = true;
+                print("can dash");
+                dashWait = 0;
+            }
+        }
+        if (Input.GetButtonDown("Fire1") && playerState == PlayerState.Moving && canDash)
         {
             playerState = PlayerState.Dashing;
             dashing = dashTime;
-            
+            canDash = false;
         }
 
         if (dashing > 0)
@@ -150,7 +156,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            dashWait = dashCD;
             if (ammo > 0)
             {
                 playerState = PlayerState.Shooting;
@@ -158,10 +163,8 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 playerState = PlayerState.Moving;
+                
             }
-        }
-        if (dashWait > 0) {
-            dashWait--;
         }
     }
 
