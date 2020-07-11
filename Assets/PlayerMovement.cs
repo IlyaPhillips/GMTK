@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float speed;
+    public float speed;
     [SerializeField] GameObject bullet;
     [SerializeField] float dashTime;
     [SerializeField] float dashSpeed;
@@ -38,44 +38,53 @@ public class PlayerMovement : MonoBehaviour
         {
             Move();
         }
-        
+
         if (playerState == PlayerState.Shooting)
         {
             Move();
             Shoot();
         }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //if (collision.tag == ("EnemyBullet"))
-        //{
-            if (playerState == PlayerState.Dashing)
-            {
-                Reload();
-            }
-            else {
-                health--;
-            }
-        //}
-        
-    }
-    
+        GameObject go = collision.gameObject;
 
-    private void Reload()
+        switch (collision.tag)
+        {
+            case "PowerUp":
+                StartCoroutine(go.GetComponent<PowerUp>().usePowerUp(this));
+                Destroy(go);
+                break;
+            case "EnemyBullet":
+                bulletCollision();
+                break;
+        }
+
+    }
+
+    private void bulletCollision()
     {
-        ammo = UnityEngine.Random.Range(2,5);
+        if (playerState == PlayerState.Dashing)
+            ammo = UnityEngine.Random.Range(2, 5);
+        else
+            health--;
     }
 
-    private void Shoot() {
-        if (Input.GetButtonDown("Fire2")) {
+    private void Shoot()
+    {
+        if (Input.GetButtonDown("Fire2"))
+        {
             ammo--;
             bullet.GetComponent<Bullet>().vel = dir.normalized;
             Instantiate(bullet, transform.position,Quaternion.identity);
-            if (ammo <= 0) {
+            if (ammo <= 0)
+            {
                 playerState = PlayerState.Moving;
             }
         }
     }
+
     private void Dash()
     {
         
