@@ -547,7 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1324721260}
-  speed: 20
+  speed: 10
   cooldownTime: 0
   range: 10
 --- !u!65 &998610448

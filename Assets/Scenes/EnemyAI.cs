@@ -39,5 +39,10 @@ public class EnemyAI : MonoBehaviour
              {
                      transform.Translate (new Vector3 (speed * Time.deltaTime, 0, 0));
              }
+             else{
+
+             }
          }
+
+
 }
