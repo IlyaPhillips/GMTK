@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float speed;
     [SerializeField] GameObject fBullet,aBullet,eBullet,wBullet;
+    public float speed;
     [SerializeField] float dashTime;
     [SerializeField] float dashSpeed;
     [SerializeField] int dashCD;
@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
             playerState = PlayerState.Dead;
             rb.velocity = new Vector2(0, 0);
         }
+
         if (playerState != PlayerState.Dead)
         {
             Targetting();
@@ -63,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
     private void Targetting()
     {
         Vector3 mouseTemp = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 15f);
@@ -74,19 +76,28 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //if (collision.tag == ("EnemyBullet"))
-        //{
-            if (playerState == PlayerState.Dashing)
-            {
-                Reload();
-            }
-            else {
-                health--;
-            }
-        //}
-        
+        GameObject go = collision.gameObject;
+
+        switch (collision.tag)
+        {
+            case "PowerUp":
+                StartCoroutine(go.GetComponent<PowerUp>().usePowerUp(this));
+                Destroy(go);
+                break;
+            case "EnemyBullet":
+                bulletCollision();
+                break;
+        }
+
     }
-    
+
+    private void bulletCollision()
+    {
+     if (playerState == PlayerState.Dashing)
+            Reload();
+        else
+            health--;
+     }
 
     private void Reload()
     {
@@ -118,19 +129,26 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
         print(ammoType);
-    }
+      }
+
+       
+
     
 
-    private void Shoot() {
-        if (Input.GetButtonDown("Fire2")) {
+    private void Shoot()
+    {
+        if (Input.GetButtonDown("Fire2"))
+        {
             ammo--;
             bullet.GetComponent<Bullet>().vel = dir.normalized;
             Instantiate(bullet, transform.position,Quaternion.identity);
-            if (ammo <= 0) {
+            if (ammo <= 0)
+            {
                 playerState = PlayerState.Moving;
             }
         }
     }
+
     private void Dash()
     {
         if (!canDash) {
