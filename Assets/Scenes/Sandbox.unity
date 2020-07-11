@@ -375,10 +375,44 @@ PrefabInstance:
       propertyPath: dashSpeed
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 5305664925440101523, guid: 27f1113f39470a54ea45a8109edb6ecc,
+        type: 3}
+      propertyPath: fBullet
+      value: 
+      objectReference: {fileID: 6971779125013783668, guid: d994095cce21a174fa6dfd12b52d2e47,
+        type: 3}
+    - target: {fileID: 5305664925440101523, guid: 27f1113f39470a54ea45a8109edb6ecc,
+        type: 3}
+      propertyPath: aBullet
+      value: 
+      objectReference: {fileID: 6971779125013783668, guid: 197941278d7d4e6479a8e287f45c7b3c,
+        type: 3}
+    - target: {fileID: 5305664925440101523, guid: 27f1113f39470a54ea45a8109edb6ecc,
+        type: 3}
+      propertyPath: eBullet
+      value: 
+      objectReference: {fileID: 6971779125013783668, guid: 84d935dfc9b807a4297ec8e731739b3f,
+        type: 3}
+    - target: {fileID: 5305664925440101523, guid: 27f1113f39470a54ea45a8109edb6ecc,
+        type: 3}
+      propertyPath: wBullet
+      value: 
+      objectReference: {fileID: 6971779125013783668, guid: d36734047b8d22748b0ecf12e3532a77,
+        type: 3}
+    - target: {fileID: 5305664925440101523, guid: 27f1113f39470a54ea45a8109edb6ecc,
+        type: 3}
+      propertyPath: health
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5305664925440101523, guid: 27f1113f39470a54ea45a8109edb6ecc,
+        type: 3}
+      propertyPath: dashCD
+      value: 160
+      objectReference: {fileID: 0}
     - target: {fileID: 5305664925440101527, guid: 27f1113f39470a54ea45a8109edb6ecc,
         type: 3}
       propertyPath: m_LinearDrag
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27f1113f39470a54ea45a8109edb6ecc, type: 3}
