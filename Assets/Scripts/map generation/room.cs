@@ -1,23 +1,35 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class Room
+public class Room : MonoBehaviour
 {
+
+
     public int roomWidth;                       //the width and height of each room
     public int roomHeight;
-    
+
     public int xPos;                            //xPos and yPos is the bottom left of the room
     public int yPos;
     public Direction enteringCorridor;          //the direction of the corridor entering the room
+
+
+    private Transform spawnHolder;
+    private List<Vector3> gridPositions = new List<Vector3>();
+
 
     //sets up the first room created 
     //columns and rows are used to make sure generated rooms do not go beyond the edge of the board
     public void SetupRoom(IntRange widthRange, IntRange heightRange, int columns, int rows)
     {
+        //InitialiseList();
+
         //set a random wifth and height for the room
         roomWidth = widthRange.Random;
         roomHeight = heightRange.Random;
+
+        Vector3 enemyPosition = new Vector3(roomWidth, roomHeight, 0f);
 
         //creates the first room in the miuddle of the board
         xPos = Mathf.RoundToInt(columns / 2f - roomWidth / 2f);
@@ -26,9 +38,12 @@ public class Room
 
     }
 
+
     //overload of the setuproom function with a corridor parameter
     public void SetupRoom(IntRange widthRange, IntRange heightRange, int columns, int rows, Corridor corridor)
     {
+
+
         //sets the entering corridor direction
         enteringCorridor = corridor.direction;
 
@@ -51,7 +66,7 @@ public class Room
 
                 //the x coordinate can be randomised but can be no further than the width of the board
                 //the corrdidor must end at the end of the room or before.
-                xPos = Random.Range(corridor.EndPositionX - roomWidth + 1, corridor.EndPositionX);
+                xPos = UnityEngine.Random.Range(corridor.EndPositionX - roomWidth + 1, corridor.EndPositionX);
 
                 xPos = Mathf.Clamp(xPos, 0, columns - roomWidth);
                 break;
@@ -60,7 +75,7 @@ public class Room
                 roomWidth = Mathf.Clamp(roomWidth, 1, columns - corridor.EndPositionX);
                 xPos = corridor.EndPositionX;
 
-                yPos = Random.Range(corridor.EndPositionY - roomHeight + 1, corridor.EndPositionY);
+                yPos = UnityEngine.Random.Range(corridor.EndPositionY - roomHeight + 1, corridor.EndPositionY);
                 yPos = Mathf.Clamp(yPos, 0, rows - roomHeight);
                 break;
 
@@ -68,7 +83,7 @@ public class Room
             case Direction.South:
                 roomHeight = Mathf.Clamp(roomHeight, 1, corridor.EndPositionY);
                 yPos = corridor.EndPositionY - roomHeight + 1;
-                xPos = Random.Range(corridor.EndPositionX - roomWidth + 1, corridor.EndPositionX);
+                xPos = UnityEngine.Random.Range(corridor.EndPositionX - roomWidth + 1, corridor.EndPositionX);
                 xPos = Mathf.Clamp(xPos, 0, columns - roomWidth);
                 break;
 
@@ -76,7 +91,7 @@ public class Room
                 roomWidth = Mathf.Clamp(roomWidth, 1, columns - corridor.EndPositionX);
                 xPos = corridor.EndPositionX - roomWidth + 1;
 
-                yPos = Random.Range(corridor.EndPositionY - roomHeight + 1, corridor.EndPositionY);
+                yPos = UnityEngine.Random.Range(corridor.EndPositionY - roomHeight + 1, corridor.EndPositionY);
                 yPos = Mathf.Clamp(yPos, 0, rows - roomHeight);
                 break;
 
