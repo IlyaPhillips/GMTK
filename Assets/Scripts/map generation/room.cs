@@ -15,8 +15,6 @@ public class Room : MonoBehaviour
     public Direction enteringCorridor;          //the direction of the corridor entering the room
 
 
-    private Transform spawnHolder;
-    private List<Vector3> gridPositions = new List<Vector3>();
 
 
     //sets up the first room created 

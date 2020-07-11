@@ -53,7 +53,7 @@ public class MapGenerator : MonoBehaviour
     private Corridor[] corridors;                               //array of generated corridors
     private GameObject mapHolder;                               //keeps all of the generated tiles in a container
 
-    private List<Vector3> gridPositions = new List<Vector3>();
+    private List<Vector2> gridPositions = new List<Vector2>();
 
 
 
@@ -88,18 +88,18 @@ public class MapGenerator : MonoBehaviour
 
 
     //RandomPosition returns a random position from our list gridPositions.
-    Vector3 RandomPosition()
+    Vector2 RandomPosition()
     {
         //Declare an integer randomIndex, set it's value to a random number between 0 and the count of items in our List gridPositions.
         int randomIndex = UnityEngine.Random.Range(0, gridPositions.Count);
 
-        //Declare a variable of type Vector3 called randomPosition, set it's value to the entry at randomIndex from our List gridPositions.
-        Vector3 randomPosition = gridPositions[randomIndex];
+        //Declare a variable of type Vector2 called randomPosition, set it's value to the entry at randomIndex from our List gridPositions.
+        Vector2 randomPosition = gridPositions[randomIndex];
 
         //Remove the entry at randomIndex from the list so that it can't be re-used.
         gridPositions.RemoveAt(randomIndex);
 
-        //Return the randomly selected Vector3 position.
+        //Return the randomly selected Vector2 position.
         return randomPosition;
     }
 
@@ -107,21 +107,21 @@ public class MapGenerator : MonoBehaviour
     //LayoutObjectAtRandom accepts an array of game objects to choose from along with a minimum and maximum range for the number of objects to create.
     void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
     {
-        
+
         //Choose a random number of objects to instantiate within the minimum and maximum limits
         int objectCount = UnityEngine.Random.Range(minimum, maximum + 1);
         //Instantiate objects until the randomly chosen limit objectCount is reached
         for (int i = 0; i < objectCount; i++)
         {
-            //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
-            Vector3 randomPosition = RandomPosition();
+            //Choose a position for randomPosition by getting a random position from our list of available Vector2s stored in gridPosition
+            Vector2 randomPosition = RandomPosition();
 
             //Choose a random tile from tileArray and assign it to tileChoice
             GameObject tileChoice = tileArray[UnityEngine.Random.Range(0, tileArray.Length)];
 
             //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
             Instantiate(tileChoice, randomPosition, Quaternion.identity);
-            
+
 
         }
     }
@@ -133,13 +133,13 @@ public class MapGenerator : MonoBehaviour
         gridPositions.Clear();
 
         //Loop through x axis (columns).
-        for (int x = 0; x < room.roomWidth ; x++)
+        for (int x = 0; x < room.roomWidth; x++)
         {
             //Within each column, loop through y axis (rows).
             for (int y = 0; y < room.roomHeight; y++)
             {
                 //At each index add a new Vector3 to our list with the x and y coordinates of that position.
-                gridPositions.Add(new Vector3(room.xPos+x, room.yPos +y, 0f));
+                gridPositions.Add(new Vector2(room.xPos + x, room.yPos + y));
             }
         }
     }
@@ -174,7 +174,8 @@ public class MapGenerator : MonoBehaviour
 
         //create the first corridor leaving the first room
         corridors[0].SetupCorridor(rooms[0], corridorLength, roomWidth, roomHeight, columns, rows, true);
-
+        Vector2 playerPosition = new Vector2(rooms[0].xPos, rooms[0].yPos);
+        Instantiate(player, playerPosition, Quaternion.identity);
         //creates all the rooms.
         for (int i = 1; i < rooms.Length; i++)
         {
@@ -188,7 +189,7 @@ public class MapGenerator : MonoBehaviour
 
             //instantiate enemyTiles in the first room
             LayoutObjectAtRandom(enemyTiles, enemyCount.minimum, enemyCount.maximum);
-            
+
             //if we havent reached the end of the corridor array then create a corridor;
             if (i < corridors.Length)
             {
@@ -196,11 +197,9 @@ public class MapGenerator : MonoBehaviour
                 //setupp the corridor based on the room that was just created.
                 corridors[i].SetupCorridor(rooms[i], corridorLength, roomWidth, roomHeight, columns, rows, false);
             }
-            if (i == 2)
-            {
-                Vector3 playerPosition = new Vector3(rooms[i].xPos, rooms[i].yPos, 0);
-                Instantiate(player, playerPosition, Quaternion.identity);
-            }
+
+
+
         }
 
     }
@@ -346,7 +345,7 @@ public class MapGenerator : MonoBehaviour
     void InstantiateFromArray(GameObject[] prefabs, float xCoord, float yCoord)
     {
         int randomIndex = UnityEngine.Random.Range(0, prefabs.Length);
-        Vector3 position = new Vector3(xCoord, yCoord, 0f);
+        Vector2 position = new Vector2(xCoord, yCoord);
 
 
         //takes an array of prefabs amd instantiates then at the xCoord and yCoord
