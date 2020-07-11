@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] GameObject fBullet,aBullet,eBullet,wBullet;
+    [SerializeField] GameObject fBullet, aBullet, eBullet, wBullet;
     public float speed;
     [SerializeField] float dashTime;
     [SerializeField] float dashSpeed;
@@ -19,11 +19,12 @@ public class PlayerMovement : MonoBehaviour
     private int dashWait;
     private bool canDash;
     private int ammo;
-    enum PlayerState { Moving, Dashing, Shooting,Dead };
+    enum PlayerState { Moving, Dashing, Shooting, Dead };
     PlayerState playerState;
-    enum AmmoType { Fire,Water,Earth,Air}
+    enum AmmoType { Fire, Water, Earth, Air }
     AmmoType ammoType;
     Rigidbody2D rb;
+    List<Item> items;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +43,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (health < 0) {
+        if (health < 0)
+        {
             playerState = PlayerState.Dead;
             rb.velocity = new Vector2(0, 0);
         }
@@ -64,8 +66,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-    private void Targetting()
+    private void Targeting()
     {
         Vector3 mouseTemp = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 15f);
         mousePos = Camera.main.ScreenToWorldPoint(mouseTemp);
@@ -93,18 +94,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void bulletCollision()
     {
-     if (playerState == PlayerState.Dashing)
+        if (playerState == PlayerState.Dashing)
             Reload();
         else
             health--;
-     }
+    }
 
     private void Reload()
     {
-        ammo = UnityEngine.Random.Range(2,5);
+        ammo = UnityEngine.Random.Range(2, 5);
         int tempRand = UnityEngine.Random.Range(0, 4);
-        
-            switch (tempRand)
+
+        switch (tempRand)
         {
             case 0:
                 ammoType = AmmoType.Fire;
@@ -129,11 +130,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
         print(ammoType);
-      }
-
-       
-
-    
+    }
 
     private void Shoot()
     {
@@ -141,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
         {
             ammo--;
             bullet.GetComponent<Bullet>().vel = dir.normalized;
-            Instantiate(bullet, transform.position,Quaternion.identity);
+            Instantiate(bullet, transform.position, Quaternion.identity);
             if (ammo <= 0)
             {
                 playerState = PlayerState.Moving;
@@ -151,9 +148,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash()
     {
-        if (!canDash) {
+        if (!canDash)
+        {
             dashWait++;
-            if (dashWait == dashCD) {
+            if (dashWait == dashCD)
+            {
                 canDash = true;
                 print("can dash");
                 dashWait = 0;
@@ -164,11 +163,12 @@ public class PlayerMovement : MonoBehaviour
             playerState = PlayerState.Dashing;
             dashing = dashTime;
             canDash = false;
+
         }
 
         if (dashing > 0)
         {
-            
+
             rb.velocity = dir * dashSpeed;
             dashing--;
         }
@@ -181,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 playerState = PlayerState.Moving;
-                
+
             }
         }
     }
