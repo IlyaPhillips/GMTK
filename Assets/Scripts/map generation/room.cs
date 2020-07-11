@@ -28,9 +28,6 @@ public class Room : MonoBehaviour
         //set a random wifth and height for the room
         roomWidth = widthRange.Random;
         roomHeight = heightRange.Random;
-
-        Vector3 enemyPosition = new Vector3(roomWidth, roomHeight, 0f);
-
         //creates the first room in the miuddle of the board
         xPos = Mathf.RoundToInt(columns / 2f - roomWidth / 2f);
         yPos = Mathf.RoundToInt(rows / 2f - roomHeight / 2f);
@@ -42,7 +39,6 @@ public class Room : MonoBehaviour
     //overload of the setuproom function with a corridor parameter
     public void SetupRoom(IntRange widthRange, IntRange heightRange, int columns, int rows, Corridor corridor)
     {
-
 
         //sets the entering corridor direction
         enteringCorridor = corridor.direction;

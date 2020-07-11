@@ -30,10 +30,12 @@ public class MapGenerator : MonoBehaviour
     public Count powerupCount = new Count(1, 5);     //Lower and upper limit for our random number of powerup items per room.
     public Count enemyCount = new Count(5, 9);   //Lower and upper limit for our random number of enemys per room.
 
-    public GameObject[] powerupTiles;           //array of powerups and enemytiles
+
     public GameObject player;
+    public GameObject[] powerupTiles;           //array of powerups and enemytiles
     public GameObject[] innerWallTiles;
-    public GameObject[] enemies;
+    public GameObject[] enemyTiles;
+    private GameObject enemyHolder;
 
     public int columns = 100;                                   //how wide the board will be
     public int rows = 100;                                      //how tall the board will be
@@ -83,6 +85,47 @@ public class MapGenerator : MonoBehaviour
     }
 
 
+
+
+    //RandomPosition returns a random position from our list gridPositions.
+    Vector3 RandomPosition()
+    {
+        //Declare an integer randomIndex, set it's value to a random number between 0 and the count of items in our List gridPositions.
+        int randomIndex = UnityEngine.Random.Range(0, gridPositions.Count);
+
+        //Declare a variable of type Vector3 called randomPosition, set it's value to the entry at randomIndex from our List gridPositions.
+        Vector3 randomPosition = gridPositions[randomIndex];
+
+        //Remove the entry at randomIndex from the list so that it can't be re-used.
+        gridPositions.RemoveAt(randomIndex);
+
+        //Return the randomly selected Vector3 position.
+        return randomPosition;
+    }
+
+
+    //LayoutObjectAtRandom accepts an array of game objects to choose from along with a minimum and maximum range for the number of objects to create.
+    void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
+    {
+        
+        //Choose a random number of objects to instantiate within the minimum and maximum limits
+        int objectCount = UnityEngine.Random.Range(minimum, maximum + 1);
+        //Instantiate objects until the randomly chosen limit objectCount is reached
+        for (int i = 0; i < objectCount; i++)
+        {
+            //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
+            Vector3 randomPosition = RandomPosition();
+
+            //Choose a random tile from tileArray and assign it to tileChoice
+            GameObject tileChoice = tileArray[UnityEngine.Random.Range(0, tileArray.Length)];
+
+            //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
+            Instantiate(tileChoice, randomPosition, Quaternion.identity);
+            
+
+        }
+    }
+
     //Clears our list gridPositions and prepares it to generate a new room.
     void InitialiseList(Room room)
     {
@@ -90,13 +133,13 @@ public class MapGenerator : MonoBehaviour
         gridPositions.Clear();
 
         //Loop through x axis (columns).
-        for (int x = 1; x < room.roomWidth; x++)
+        for (int x = 0; x < room.roomWidth ; x++)
         {
             //Within each column, loop through y axis (rows).
-            for (int y = 1; y < room.roomHeight; y++)
+            for (int y = 0; y < room.roomHeight; y++)
             {
                 //At each index add a new Vector3 to our list with the x and y coordinates of that position.
-                gridPositions.Add(new Vector3(x, y, 0f));
+                gridPositions.Add(new Vector3(room.xPos+x, room.yPos +y, 0f));
             }
         }
     }
@@ -107,19 +150,27 @@ public class MapGenerator : MonoBehaviour
         rooms = new Room[numRooms.Random];
 
         ////initialise list for the first room
-        //InitialiseList(rooms[0]);
+
 
         // creates the array of corridores with one less corrdior than there is rooms otherwise there will be a corridor leading to no room
         corridors = new Corridor[rooms.Length - 1];
 
         //creates the first room
         rooms[0] = new Room();
-        
-        //creates the first corrido
+
+
+
+        //creates the first corridor
         corridors[0] = new Corridor();
 
         // there is no previous corridor so we use the first setuproom function.
         rooms[0].SetupRoom(roomWidth, roomHeight, columns, rows);
+
+        //makes sure the grid for the first room is cleared and creates a new grid
+        InitialiseList(rooms[0]);
+
+        //instantiate enemyTiles in the first room
+        LayoutObjectAtRandom(enemyTiles, enemyCount.minimum, enemyCount.maximum);
 
         //create the first corridor leaving the first room
         corridors[0].SetupCorridor(rooms[0], corridorLength, roomWidth, roomHeight, columns, rows, true);
@@ -129,10 +180,15 @@ public class MapGenerator : MonoBehaviour
         {
             //creates a new room
             rooms[i] = new Room();
-
             //setup the room based on the previous corrdior
             rooms[i].SetupRoom(roomWidth, roomHeight, columns, rows, corridors[i - 1]);
 
+            //clears the grid and creates a new crid for every room
+            InitialiseList(rooms[i]);
+
+            //instantiate enemyTiles in the first room
+            LayoutObjectAtRandom(enemyTiles, enemyCount.minimum, enemyCount.maximum);
+            
             //if we havent reached the end of the corridor array then create a corridor;
             if (i < corridors.Length)
             {
@@ -140,10 +196,10 @@ public class MapGenerator : MonoBehaviour
                 //setupp the corridor based on the room that was just created.
                 corridors[i].SetupCorridor(rooms[i], corridorLength, roomWidth, roomHeight, columns, rows, false);
             }
-            if(i == rooms.Length*0.5)
+            if (i == 2)
             {
-                Vector3 playerPosition = new Vector3(rooms[i].xPos, rooms[i].yPos, 0 );
-                Instantiate(player, playerPosition, Quaternion.identity );
+                Vector3 playerPosition = new Vector3(rooms[i].xPos, rooms[i].yPos, 0);
+                Instantiate(player, playerPosition, Quaternion.identity);
             }
         }
 
@@ -303,42 +359,6 @@ public class MapGenerator : MonoBehaviour
 
 
 
-    //RandomPosition returns a random position from our list gridPositions.
-    Vector3 RandomPosition()
-    {
-        //Declare an integer randomIndex, set it's value to a random number between 0 and the count of items in our List gridPositions.
-        int randomIndex = UnityEngine.Random.Range(0, gridPositions.Count);
-
-        //Declare a variable of type Vector3 called randomPosition, set it's value to the entry at randomIndex from our List gridPositions.
-        Vector3 randomPosition = gridPositions[randomIndex];
-
-        //Remove the entry at randomIndex from the list so that it can't be re-used.
-        gridPositions.RemoveAt(randomIndex);
-
-        //Return the randomly selected Vector3 position.
-        return randomPosition;
-    }
-
-
-    //LayoutObjectAtRandom accepts an array of game objects to choose from along with a minimum and maximum range for the number of objects to create.
-    void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
-    {
-        //Choose a random number of objects to instantiate within the minimum and maximum limits
-        int objectCount = UnityEngine.Random.Range(minimum, maximum + 1);
-
-        //Instantiate objects until the randomly chosen limit objectCount is reached
-        for (int i = 0; i < objectCount; i++)
-        {
-            //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
-            Vector3 randomPosition = RandomPosition();
-
-            //Choose a random tile from tileArray and assign it to tileChoice
-            GameObject tileChoice = tileArray[UnityEngine.Random.Range(0, tileArray.Length)];
-
-            //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
-            Instantiate(tileChoice, randomPosition, Quaternion.identity);
-        }
-    }
 
 
 }
