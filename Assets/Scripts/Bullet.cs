@@ -26,9 +26,6 @@ public class
         if ((Vector2.Distance(start,transform.position) > maxDist)) {
             Destroy(gameObject);
         }
-        if (this.name == "FireBullet(Clone)") {
-            transform.localScale = transform.localScale+ new Vector3(0.01f,0.01f);
-        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

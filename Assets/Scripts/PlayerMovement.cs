@@ -25,12 +25,18 @@ public class PlayerMovement : MonoBehaviour
     enum AmmoType { Fire,Water,Earth,Air}
     AmmoType ammoType;
     Rigidbody2D rb;
+    [SerializeField] AudioClip dodgeOnCD;
+    [SerializeField] AudioClip catchBullet;
+    [SerializeField] AudioClip eShot, fShot, wShot, aShot;
+    [SerializeField] AudioClip hitFX;
+    [SerializeField] AudioClip dashFX;
+    AudioSource audio;
 
     // Start is called before the first frame update
     void Start()
     {
         speed = 4;
-        dashTime = 80;
+        dashTime = 40;
         dashSpeed = 15;
         dashCD = 160;
 
@@ -38,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         dashWait = 0;
         ammo = 0;
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -94,14 +101,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void bulletCollision()
     {
-     if (playerState == PlayerState.Dashing)
+        if (playerState == PlayerState.Dashing)
             Reload();
         else
+            audio.PlayOneShot(hitFX);
             health--;
      }
 
     private void Reload()
     {
+        audio.PlayOneShot(catchBullet);
         ammo = UnityEngine.Random.Range(2,5);
         int tempRand = UnityEngine.Random.Range(0, 4);
         
@@ -140,8 +149,10 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             ammo--;
+            
             switch (ammoType) {
                 case AmmoType.Air:
+                    audio.PlayOneShot(aShot);
                     bullet.GetComponent<PlayerBullet>().vel = dir.normalized;
                     Instantiate(bullet, transform.position, Quaternion.identity);
                     bullet.GetComponent<PlayerBullet>().vel = dir.normalized;
@@ -150,6 +161,7 @@ public class PlayerMovement : MonoBehaviour
                     Instantiate(bullet, transform.position+new Vector3(dir.x,dir.y), Quaternion.identity);
                     break;
                 case AmmoType.Earth:
+                    audio.PlayOneShot(eShot);
                     Vector2 temp = new Vector2(Random.Range(-0.05f,0.05f), Random.Range(-0.05f, 0.05f));
                     bullet.GetComponent<PlayerBullet>().vel = (dir+temp).normalized;
                     Instantiate(bullet, transform.position, Quaternion.identity);
@@ -159,10 +171,12 @@ public class PlayerMovement : MonoBehaviour
                     Instantiate(bullet, transform.position, Quaternion.identity);
                     break;
                 case AmmoType.Fire:
+                    audio.PlayOneShot(fShot);
                     bullet.GetComponent<PlayerBullet>().vel = dir.normalized;
                     Instantiate(bullet, transform.position, Quaternion.identity);
                     break;
                 case AmmoType.Water:
+                    audio.PlayOneShot(wShot);
                     bullet.GetComponent<PlayerBullet>().vel = dir.normalized;
                     Instantiate(bullet, transform.position, Quaternion.identity);
                     break;
@@ -192,9 +206,13 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetButtonDown("Fire1") && playerState == PlayerState.Moving && canDash)
         {
+            audio.PlayOneShot(dashFX);
             playerState = PlayerState.Dashing;
             dashing = dashTime;
             canDash = false;
+        }
+        else if (Input.GetButtonDown("Fire1")) {
+            audio.PlayOneShot(dodgeOnCD);
         }
 
         if (dashing > 0)
