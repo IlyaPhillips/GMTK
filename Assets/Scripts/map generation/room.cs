@@ -91,6 +91,7 @@ public class Room : MonoBehaviour
 
         }
 
+        Debug.Log("Setting y position: " + yPos + ", Direction: " + corridor.direction);
     }
 
 

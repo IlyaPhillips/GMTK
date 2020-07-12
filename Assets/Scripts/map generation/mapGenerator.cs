@@ -213,16 +213,17 @@ public class MapGenerator : MonoBehaviour
             Room currentRoom = rooms[i];
 
             //then for each room, go through its width
-            for (int j = 0; j < currentRoom.roomWidth; j++)
+            for (int j = 0; j < currentRoom.roomWidth - 1; j++)
             {
                 //currentRoom.xPos and currentRoom.yPos is the bottom most left corner
                 int xCoord = currentRoom.xPos + j;
 
                 //for each horizontal tile, go up vertically through the room's height
-                for (int k = 0; k < currentRoom.roomHeight; k++)
+                for (int k = 0; k < currentRoom.roomHeight - 1; k++)
                 {
                     int yCoord = currentRoom.yPos + k;
 
+                    Debug.Log("yPos: " + currentRoom.yPos + ", xPos: " + currentRoom.xPos + ", xCord: " + xCoord + ", yCord: " + yCoord + ", tiles X " + tiles[0].Length + ", tiles Y: " + tiles[1].Length);
                     tiles[xCoord][yCoord] = TileType.Floor;
 
                 }
