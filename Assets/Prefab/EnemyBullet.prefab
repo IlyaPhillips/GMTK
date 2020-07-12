@@ -98,8 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   maxDist: 40
-  burst: {fileID: 6971779125013783668, guid: d36734047b8d22748b0ecf12e3532a77, type: 3}
-  vel: {x: 1, y: 0}
+  burst: {fileID: 0}
+  vel: {x: -0.5764041, y: 0.81716484}
 --- !u!50 &8094225463594298381
 Rigidbody2D:
   serializedVersion: 4
