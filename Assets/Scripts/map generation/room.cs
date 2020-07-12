@@ -53,40 +53,46 @@ public class Room : MonoBehaviour
 
                 // the height of the room should not go beyond the board using the y coordinate of the end of the corridor entering the room
                 // so it must be clamped based on the height of the board.
-                roomHeight = Mathf.Clamp(roomHeight, 1, rows - corridor.EndPositionY);
+                roomHeight = Mathf.Clamp(roomHeight, 1, rows - corridor.EndPositionY - 10);
+                roomWidth = Mathf.Clamp(roomWidth, 1, columns - corridor.EndPositionX - 10);
 
                 //the y coordinate of the room must be at the end of the corrdfor (bottom of the room)
                 yPos = corridor.EndPositionY;
 
                 //the x coordinate can be randomised but can be no further than the width of the board
                 //the corrdidor must end at the end of the room or before.
-                xPos = UnityEngine.Random.Range(corridor.EndPositionX - roomWidth + 1, corridor.EndPositionX);
+                xPos = UnityEngine.Random.Range(corridor.EndPositionX - roomWidth, corridor.EndPositionX);
 
-                xPos = Mathf.Clamp(xPos, 0, columns - roomWidth);
+                //xPos = Mathf.Clamp(xPos, 1, columns - roomWidth-10);
                 break;
 
             case Direction.East:
-                roomWidth = Mathf.Clamp(roomWidth, 1, columns - corridor.EndPositionX);
+                roomWidth = Mathf.Clamp(roomWidth, 1, columns - corridor.EndPositionX - 10);
+                roomHeight = Mathf.Clamp(roomHeight, 1, rows - corridor.EndPositionY - 10);
                 xPos = corridor.EndPositionX;
 
                 yPos = UnityEngine.Random.Range(corridor.EndPositionY - roomHeight + 1, corridor.EndPositionY);
-                yPos = Mathf.Clamp(yPos, 0, rows - roomHeight);
+                //yPos = Mathf.Clamp(yPos, 1, rows - roomHeight);
                 break;
 
 
             case Direction.South:
-                roomHeight = Mathf.Clamp(roomHeight, 1, corridor.EndPositionY);
+                roomHeight = Mathf.Clamp(roomHeight, 1, corridor.EndPositionY + 10);
+                roomWidth = Mathf.Clamp(roomWidth, 1, columns - corridor.EndPositionX - 10);
+
                 yPos = corridor.EndPositionY - roomHeight + 1;
                 xPos = UnityEngine.Random.Range(corridor.EndPositionX - roomWidth + 1, corridor.EndPositionX);
-                xPos = Mathf.Clamp(xPos, 0, columns - roomWidth);
+                //xPos = Mathf.Clamp(xPos, 1, columns - roomWidth);
                 break;
 
             case Direction.West:
-                roomWidth = Mathf.Clamp(roomWidth, 1, columns - corridor.EndPositionX);
+                roomWidth = Mathf.Clamp(roomWidth, 1, columns - corridor.EndPositionX + 10);
+                roomHeight = Mathf.Clamp(roomHeight, 1, corridor.EndPositionY + 10);
+
                 xPos = corridor.EndPositionX - roomWidth + 1;
 
                 yPos = UnityEngine.Random.Range(corridor.EndPositionY - roomHeight + 1, corridor.EndPositionY);
-                yPos = Mathf.Clamp(yPos, 0, rows - roomHeight);
+                //yPos = Mathf.Clamp(yPos, 1, rows - roomHeight);
                 break;
 
         }
