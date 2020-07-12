@@ -187,8 +187,11 @@ public class MapGenerator : MonoBehaviour
             //clears the grid and creates a new crid for every room
             InitialiseList(rooms[i]);
 
-            //instantiate enemyTiles in the first room
+            //instantiate enemies and cover walls
             LayoutObjectAtRandom(enemyTiles, enemyCount.minimum, enemyCount.maximum);
+            LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
+            LayoutObjectAtRandom(powerupTiles, powerupCount.minimum, powerupCount.maximum);
+
 
             //if we havent reached the end of the corridor array then create a corridor;
             if (i < corridors.Length)
