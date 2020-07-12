@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 2533777227557082467}
   - component: {fileID: -3936475481201201618}
   - component: {fileID: -8056889789122742410}
+  - component: {fileID: -8523147669868043215}
   m_Layer: 0
-  m_Name: EarthBullet
+  m_Name: AirBullet
   m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6971779125013783668}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3700656, y: 0.3734685, z: -6.883401}
+  m_LocalPosition: {x: 0.3700656, y: 0.3734685, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.5188679, g: 0.37057105, b: 0.21293165, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,7 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   maxDist: 60
-  vel: {x: 0.9446942, y: 0.31010768}
+  burst: {fileID: 0}
+  vel: {x: 0.7048141, y: 0.70939213}
 --- !u!50 &-8056889789122742410
 Rigidbody2D:
   serializedVersion: 4
@@ -119,3 +121,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!58 &-8523147669868043215
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6971779125013783668}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1

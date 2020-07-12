@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -128,7 +129,6 @@ public class PlayerMovement : MonoBehaviour
                 bullet = fBullet;
                 break;
         }
-        print(ammoType);
       }
 
        
@@ -140,8 +140,39 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             ammo--;
-            bullet.GetComponent<Bullet>().vel = dir.normalized;
-            Instantiate(bullet, transform.position,Quaternion.identity);
+            switch (ammoType) {
+                case AmmoType.Air:
+                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    Instantiate(bullet, transform.position, Quaternion.identity);
+                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    Instantiate(bullet, transform.position + new Vector3(dir.x, dir.y)/2, Quaternion.identity);
+                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    Instantiate(bullet, transform.position+new Vector3(dir.x,dir.y), Quaternion.identity);
+                    break;
+                case AmmoType.Earth:
+                    Vector2 temp = new Vector2(Random.Range(-0.05f,0.05f), Random.Range(-0.05f, 0.05f));
+                    bullet.GetComponent<Bullet>().vel = (dir+temp).normalized;
+                    Instantiate(bullet, transform.position, Quaternion.identity);
+                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    Instantiate(bullet, transform.position, Quaternion.identity);
+                    bullet.GetComponent<Bullet>().vel = (dir+2*temp).normalized;
+                    Instantiate(bullet, transform.position, Quaternion.identity);
+                    break;
+                case AmmoType.Fire:
+                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    Instantiate(bullet, transform.position, Quaternion.identity);
+                    break;
+                case AmmoType.Water:
+                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    Instantiate(bullet, transform.position, Quaternion.identity);
+                    break;
+                default:
+                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    Instantiate(bullet, transform.position, Quaternion.identity);
+                    break;
+
+            }
+            
             if (ammo <= 0)
             {
                 playerState = PlayerState.Moving;
@@ -155,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
             dashWait++;
             if (dashWait == dashCD) {
                 canDash = true;
-                print("can dash");
+                
                 dashWait = 0;
             }
         }
