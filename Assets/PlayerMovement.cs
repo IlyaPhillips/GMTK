@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -51,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerState != PlayerState.Dead)
         {
-            Targetting();
+            Targeting();
             Dash();
             if (playerState == PlayerState.Moving)
             {
@@ -138,7 +139,11 @@ public class PlayerMovement : MonoBehaviour
         {
             ammo--;
             bullet.GetComponent<Bullet>().vel = dir.normalized;
-            Instantiate(bullet, transform.position, Quaternion.identity);
+
+            // bullet.fire();
+            foreach (BulletItem bi in items.Where(x is Bullet))
+
+                Instantiate(bullet, transform.position, Quaternion.identity);
             if (ammo <= 0)
             {
                 playerState = PlayerState.Moving;

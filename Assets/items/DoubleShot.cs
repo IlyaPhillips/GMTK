@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class DoubleShot : MonoBehaviour
+public class DoubleShot : BulletItem
 {
-    private CircleCollider2D cc;
-    private Rigidbody2D rb;
-    [SerializeField] string type;
-
-    void Start()
+    public void pickupItem(PlayerMovement pm)
     {
-        Debug.Log("powerup");
 
-        cc = GetComponent<CircleCollider2D>();
-        rb = GetComponent<Rigidbody2D>();
     }
 
-    public abstract IEnumerator usePowerUp(PlayerMovement pm);
+    public Bullet transformBullet(Bullet bullet)
+    {
+        return bullet;
+    }
 
+    public void dropItem(PlayerMovement pm)
+    {
+
+    }
 }

@@ -4,18 +4,8 @@ using UnityEngine;
 
 public abstract class Item : MonoBehaviour
 {
-    private CircleCollider2D cc;
-    private Rigidbody2D rb;
-    [SerializeField] string type;
+    string name;
 
-    void Start()
-    {
-        Debug.Log("powerup");
-
-        cc = GetComponent<CircleCollider2D>();
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    public abstract IEnumerator usePowerUp(PlayerMovement pm);
-
+    public abstract void pickupItem(PlayerMovement pm);
+    public abstract void dropItem(PlayerMovement pm);
 }
