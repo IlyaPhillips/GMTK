@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         ammo = UnityEngine.Random.Range(2,5);
         int tempRand = UnityEngine.Random.Range(0, 4);
         
-            switch (1)
+            switch (tempRand)
         {
             case 0:
                 ammoType = AmmoType.Fire;
