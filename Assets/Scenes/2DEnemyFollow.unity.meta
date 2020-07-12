@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scenes/Main.unity.meta
+guid: 5eb3604ee03f74141990080f61e058a4
+=======
 guid: 6ef97ac0eab5b1c4594b0163d9f18343
+>>>>>>> master:Assets/Scenes/2DEnemyFollow.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
