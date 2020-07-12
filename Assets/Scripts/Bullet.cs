@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float maxDist;
+    [SerializeField] GameObject burst;
     public Vector2 vel;
     private Vector2 start;
     private Rigidbody2D rb;
@@ -23,6 +24,9 @@ public class Bullet : MonoBehaviour
         
         if ((Vector2.Distance(start,transform.position) > maxDist)) {
             Destroy(gameObject);
+        }
+        if (this.name == "FireBullet(Clone)") {
+            transform.localScale = transform.localScale+ new Vector3(0.01f,0.01f);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
