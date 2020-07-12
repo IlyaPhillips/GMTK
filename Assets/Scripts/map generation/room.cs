@@ -83,8 +83,9 @@ public class Room : MonoBehaviour
 
             case Direction.West:
                 roomWidth = Mathf.Clamp(roomWidth, 1, columns - corridor.EndPositionX);
+
                 xPos = corridor.EndPositionX - roomWidth + 1;
-                xPos = Mathf.Clamp(xPos, 0,roomWidth);
+                xPos = Mathf.Clamp(xPos, 0,columns - roomWidth);
 
                 yPos = UnityEngine.Random.Range(corridor.EndPositionY - roomHeight + 1, corridor.EndPositionY);
                 yPos = Mathf.Clamp(yPos, 0, rows - roomHeight);
