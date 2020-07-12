@@ -142,32 +142,32 @@ public class PlayerMovement : MonoBehaviour
             ammo--;
             switch (ammoType) {
                 case AmmoType.Air:
-                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    bullet.GetComponent<PlayerBullet>().vel = dir.normalized;
                     Instantiate(bullet, transform.position, Quaternion.identity);
-                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    bullet.GetComponent<PlayerBullet>().vel = dir.normalized;
                     Instantiate(bullet, transform.position + new Vector3(dir.x, dir.y)/2, Quaternion.identity);
-                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    bullet.GetComponent<PlayerBullet>().vel = dir.normalized;
                     Instantiate(bullet, transform.position+new Vector3(dir.x,dir.y), Quaternion.identity);
                     break;
                 case AmmoType.Earth:
                     Vector2 temp = new Vector2(Random.Range(-0.05f,0.05f), Random.Range(-0.05f, 0.05f));
-                    bullet.GetComponent<Bullet>().vel = (dir+temp).normalized;
+                    bullet.GetComponent<PlayerBullet>().vel = (dir+temp).normalized;
                     Instantiate(bullet, transform.position, Quaternion.identity);
-                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    bullet.GetComponent<PlayerBullet>().vel = dir.normalized;
                     Instantiate(bullet, transform.position, Quaternion.identity);
-                    bullet.GetComponent<Bullet>().vel = (dir+2*temp).normalized;
+                    bullet.GetComponent<PlayerBullet>().vel = (dir+2*temp).normalized;
                     Instantiate(bullet, transform.position, Quaternion.identity);
                     break;
                 case AmmoType.Fire:
-                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    bullet.GetComponent<PlayerBullet>().vel = dir.normalized;
                     Instantiate(bullet, transform.position, Quaternion.identity);
                     break;
                 case AmmoType.Water:
-                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    bullet.GetComponent<PlayerBullet>().vel = dir.normalized;
                     Instantiate(bullet, transform.position, Quaternion.identity);
                     break;
                 default:
-                    bullet.GetComponent<Bullet>().vel = dir.normalized;
+                    bullet.GetComponent<PlayerBullet>().vel = dir.normalized;
                     Instantiate(bullet, transform.position, Quaternion.identity);
                     break;
 

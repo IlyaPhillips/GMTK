@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8494717844002256338}
   - component: {fileID: 2533777227557082467}
-  - component: {fileID: -3936475481201201618}
   - component: {fileID: -8056889789122742410}
   - component: {fileID: 1176174599359318265}
+  - component: {fileID: 3276449911474244494}
   m_Layer: 0
   m_Name: EarthBullet
   m_TagString: PlayerBullet
@@ -84,22 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-3936475481201201618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6971779125013783668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82a8ffbc1b8f0f2478abcdebeb891a2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 20
-  maxDist: 60
-  burst: {fileID: 0}
-  vel: {x: 0.99935204, y: 0.03599351}
 --- !u!50 &-8056889789122742410
 Rigidbody2D:
   serializedVersion: 4
@@ -137,3 +121,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
+--- !u!114 &3276449911474244494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6971779125013783668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68694afb48020c64597219c8d1b39f17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  maxDist: 20
+  burst: {fileID: 6971779125013783668, guid: d36734047b8d22748b0ecf12e3532a77, type: 3}
+  vel: {x: -0.4021777, y: -0.9155617}

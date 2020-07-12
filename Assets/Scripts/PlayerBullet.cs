@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class 
-    Bullet : MonoBehaviour
+public class PlayerBullet : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float maxDist;
+    [SerializeField] GameObject burst;
     public Vector2 vel;
     private Vector2 start;
     private Rigidbody2D rb;
@@ -16,13 +16,16 @@ public class
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = vel*speed;
         start = transform.position;
-        
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        print(vel);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        rb.velocity = vel * speed;
+        print(rb.velocity);
         if ((Vector2.Distance(start,transform.position) > maxDist)) {
             Destroy(gameObject);
         }
@@ -32,7 +35,7 @@ public class
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player"){
+        if(collision.gameObject.tag == "Enemy"){
               Destroy(gameObject);
 
         }
