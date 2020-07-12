@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8494717844002256338}
   - component: {fileID: 2533777227557082467}
-  - component: {fileID: -3936475481201201618}
   - component: {fileID: -8056889789122742410}
+  - component: {fileID: -6111945585690927920}
+  - component: {fileID: 2600145830068472957}
   m_Layer: 0
-  m_Name: EarthBullet
+  m_Name: WaterBurst
   m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.5188679, g: 0.37057105, b: 0.21293165, a: 1}
+  m_Color: {r: 0, g: 0.23009925, b: 0.9339623, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -83,21 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-3936475481201201618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6971779125013783668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82a8ffbc1b8f0f2478abcdebeb891a2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 20
-  maxDist: 60
-  vel: {x: 0.9446942, y: 0.31010768}
 --- !u!50 &-8056889789122742410
 Rigidbody2D:
   serializedVersion: 4
@@ -119,3 +105,35 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-6111945585690927920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6971779125013783668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68694afb48020c64597219c8d1b39f17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  maxDist: 0
+  burst: {fileID: 0}
+  vel: {x: 0.45678118, y: 0.8895791}
+--- !u!58 &2600145830068472957
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6971779125013783668}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1

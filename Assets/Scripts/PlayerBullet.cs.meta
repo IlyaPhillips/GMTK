@@ -1,18 +1,10 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: b69a6d37d5163384d8cdc6ae22d1c590
-MonoImporter:
-  externalObjects: {}
-  serializedVersion: 2
-  defaultReferences: []
-=======
-guid: 82a8ffbc1b8f0f2478abcdebeb891a2e
+guid: 68694afb48020c64597219c8d1b39f17
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
   - burst: {fileID: 6971779125013783668, guid: d36734047b8d22748b0ecf12e3532a77, type: 3}
->>>>>>> master
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
