@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -4586741735927412130}
   - component: {fileID: 1175752737123747669}
   m_Layer: 0
-  m_Name: WaterBullet 1
+  m_Name: WaterBullet
   m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -136,4 +136,4 @@ MonoBehaviour:
   speed: 5
   maxDist: 20
   burst: {fileID: 6971779125013783668, guid: d36734047b8d22748b0ecf12e3532a77, type: 3}
-  vel: {x: 0, y: 0}
+  vel: {x: -0.6657328, y: 0.74619025}

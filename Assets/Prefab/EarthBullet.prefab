@@ -115,7 +115,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -136,4 +136,4 @@ MonoBehaviour:
   speed: 5
   maxDist: 20
   burst: {fileID: 6971779125013783668, guid: d36734047b8d22748b0ecf12e3532a77, type: 3}
-  vel: {x: -0.4021777, y: -0.9155617}
+  vel: {x: 0.986773, y: 0.16210786}
